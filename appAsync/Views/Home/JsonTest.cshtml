@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Json Test</h1>
+<ul id="jsonLs"></ul>
+<h2>HW1</h2>
+
+
+@section Scripts{
+    <script src="c:\c_sharp\restfuilajax\appasync\appasync\wwwroot\js\travel.js"></script>
+    <script>
+        var emps = [{ "name": "Tom", "workYears": 3, "salary": 35000 },
+            { "name": "Jack", "workYears": 5, "salary": 40000 },
+            { "name": "Mary", "workYears": 7, "salary": 45000 }];
+        // read json
+        var showData = "";
+        for (i = 0; i < emps.length; i++) { 
+            console.log(emps[i].name);
+            console.log(emps[i].workYears);
+            console.log(emps[i].salary);
+            showData += `<li>${[emps[i].name, emps[i].workYears, emps[i].salary].join(', ')}</li>`
+        }
+        document.querySelector("#jsonLs").innerHTML = showData;
+
+    </script>
+}
