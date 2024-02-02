@@ -29,6 +29,7 @@ namespace appAsync.Controllers
 
         public IActionResult Index()
         {
+            var products = _context.Products.Where(p => p.CategoryId == 1);
 
             return View();
             //return View();

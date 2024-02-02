@@ -9,28 +9,19 @@ namespace appAsync.Controllers
     public class HomeworkController : Controller
     {
 
-        private readonly MyDBContext _dbContext;
+        private readonly MyDbContext _dbContext;
 
-        public HomeworkController(MyDBContext dbContext)
+        public HomeworkController(MyDbContext dbContext)
 
         {
 
             _dbContext = dbContext;
         }
-
-        //[HttpPost]
-        public IActionResult Index() {
-            Thread.Sleep(5000);
-            return Content("Chio \n 嗨 \n ", "text/plain", Encoding.UTF8);
+        public IActionResult Cities() {
+            var cities = _dbContext.Addresses.Select(a => a.City).Distinct();
+            return Json(cities);
         }
-
-        public IActionResult ErrorTest() { 
-            int a = 0;
-            int b = 1;
-            int c = b/a;
-            return Content("Error Testing", "text/plain");
-        }
-
+        
 
 
 

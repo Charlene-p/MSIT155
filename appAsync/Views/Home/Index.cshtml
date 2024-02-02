@@ -23,7 +23,7 @@
                 abortController = new AbortController();
                 const signal = abortController.signal;
                 
-                setTimeout(() => { 
+                setTimeout(() => {
                     abortController.abort();
                 }, 3000)
                 
@@ -45,11 +45,11 @@
         })
         btnEnd.addEventListener("click", async () => { 
             abortController.abort();
-        })
+            })
 
 
 
-        
+
         // btnStart.addEventListener("click", function () {
         //     fetch("@Url.Content("~/Homework/ErrorTest")")
         //         .then(response => {
@@ -72,7 +72,16 @@
         //         .catch(error=> console.log(error))
         // })
 
+        (async () => {
+            let data = await promiseSomething("A");
+            console.log(data);
+            data = await promiseSomething("B");
+            console.log(data);
+            data = await promiseSomething("END")
+            console.log(data);
+        })();
+
     </script>
 }
     
-
+    
