@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Cities";
+}
+
+<h1>Cities</h1>
+
+<select id="selectCities">
+</select>
+
+<select id="selectDistricts">
+</select>
+
+<select id="selectRoads">
+</select>
+
+@section Scripts {
+    <script>
+        (async () => {
+            const selCities = document.querySelector("#selectCities");
+            const selDistrices = document.querySelector("#selectDistricts")
+            const selRoads = document.querySelector("#selectRoads")
+            const response = await fetch("@Url.Content("~/Api/Cities")")
+            if (!response.ok) {
+                console.log(`Error: ${response.status}`)
+            }
+            const data = await response.json();
+            const cities = data.map(city => `<option value=${city}>${city}</option>`)
+            selCities.innerHTML = cities.join("")
+            // console.log(cities)
+            // console.log(cities.join(""))
+
+            selCities.addEventListener("change", async(e)=>{
+                const city = e.target.value;
+                console.log(city);
+                const response = await fetch(`@Url.Content("~/Api/Districts")?city=${city}`)
+                const data = await response.json();
+                const dists = data.map(dist => `<option value=${dist}>${dist}</option>`)
+                selDistrices.innerHTML = dists.join("")
+            })
+
+            selDistrices.addEventListener("change", async(e) => { 
+                const dist = e.target.value;
+                const response = await fetch(`@Url.Content("~/Api/Roads")?district=${dist}`)
+                const data = await response.json();
+                const roads = data.map(road => `<option value=${road}>${road}</option>`)
+                selRoads.innerHTML = roads.join("")
+            })
+        })();
+
+    </script>
+}

@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Spots";
+}
+
+<h1>Spots</h1>
+
+@section Scripts {
+    <script>
+        const searchData = {
+            "Categoty": 0,
+            "keyword": "北投",
+            "page": 1,
+            "pageSize": 9,
+            "sortType": "asc",
+            "sortBy": ""
+        }
+        const sendSpots = async() => {
+            const response = await fetch('@Url.Content("~/Api/Spots/")', {
+                'method': 'POST',
+                'body': JSON.stringify(searchData),
+                'headers': {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const spots = await response.json();
+            console.log(spots);
+        }
+        
+        sendSpots();
+
+    </script>
+}

@@ -24,9 +24,14 @@
                 <input type="number" class="form-control" id="userAge" name="Age">
             </div>
 
-            <button id="button1" type="submit" class="btn btn-primary">送出</button>
+            <div class="mb-3">
+                <label class="form-label" for="userPhoto">頭像</label>
+                <input type="file" class="form-control" id="userPhoto" name="Avatar">
+            </div>
+
+            <button id="btnSubmit" type="submit" class="btn btn-primary">送出</button>
         </form>
-        <div class="alert alert-info" id="div1"></div>
+        <div class="alert alert-info" id="divInfo"></div>
     </div>
     <div class="col-3">
     </div>
@@ -37,15 +42,31 @@
 
         const userName = document.querySelector("#userName");
         const divWarning = document.querySelector("#divWarning");
-        userName.addEventListener("change", async function() {
-       
-            
-            const url = `@Url.Content("~/Homework/CheckAccount")?name=${userName.value}`
-            console.log(url)
+        const btnSubmit = document.querySelector("#btnSubmit");
+        const divInfo = document.querySelector("#divInfo")
+        userName.addEventListener("change", async() =>{  
+            const url = `@Url.Content("~/Api/CheckAccount")?name=${userName.value}`
+            // console.log(url)
             const response =  await fetch(url)
             const data =  await response.text()
             divWarning.innerText = data;
-            console.log(data)
+            // console.log(data)
+        })
+        btnSubmit.addEventListener("click", async (e) => { 
+            e.preventDefault();
+            const formData = new FormData(document.querySelector("#userForm"));
+            // formData.append("key", "value")
+            // for (const pair of formData.entries()) { 
+            //     console.log(pair[0]);
+            //     console.log(pair[1])
+            // }
+            const url = "@Url.Content("~/Api/Register")"
+            const response = await fetch(url, {
+                body: formData,
+                method: 'POST'
+            });
+            const data = await response.text();
+            divInfo.innerHTML = data;
         })
     </script>
 }

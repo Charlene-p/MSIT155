@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Avatar";
+}
+
+<h1>Avatar</h1>
+<input type="text" id="userInput"/>
+<img id="myImg"/>
+
+@section Scripts{
+    <script>
+        const userInput = document.querySelector('#userInput')
+        userInput.addEventListener("change", async function () => {
+            console.log(e.value)
+            const myImg = document.querySelector("#myImg");
+            const response = await fetch('@Url.Content("~/Homework/avatar/")') + e.value;
+            if (!response.ok) {
+                console.log(`Error: ${response.status}`)
+            }
+            const data = await response.blob();
+            myImg.src = URL.createObjectURL(data)
+        })
+
+    </script>
+}
